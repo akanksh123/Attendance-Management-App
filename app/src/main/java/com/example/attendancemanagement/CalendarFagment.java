@@ -6,22 +6,33 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class CalendarFagment extends Fragment {
 
-
+    private CalendarView calendarView;
+    private String selectedDate;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar,
                 container, false);
-
+        calendarView =(CalendarView)view.getRootView().findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDate=Integer.toString(year)+Integer.toString(month)+Integer.toString(dayOfMonth);
+                Toast.makeText(getActivity(),selectedDate,Toast.LENGTH_SHORT).show();
+            }
+        });
         TableLayout stk = (TableLayout)view.getRootView().findViewById(R.id.table_main);
         TableRow tbrow0 = new TableRow(getActivity());
         TextView tv0 = new TextView(getActivity());
@@ -45,7 +56,7 @@ public class CalendarFagment extends Fragment {
         tv4.setTextColor(Color.WHITE);
         tbrow0.addView(tv4);
         stk.addView(tbrow0);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 1; i++) {
             TableRow tbrow = new TableRow(getActivity());
             TextView t1v = new TextView(getActivity());
             t1v.setText("" + i);
