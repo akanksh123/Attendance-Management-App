@@ -35,8 +35,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         //first activity will be attendance activity
         if(savedInstanceState==null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MarkAttendanceFagment()).commit();
-            navigationView.setCheckedItem(R.id.Attendance);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CalendarFagment()).commit();
+            navigationView.setCheckedItem(R.id.calendar);
         } }
 
     @Override

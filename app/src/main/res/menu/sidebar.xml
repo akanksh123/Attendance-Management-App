@@ -4,12 +4,13 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/Attendance"
-            android:icon="@drawable/ic_present"
-            android:title="Mark Attendance"/>
         <item android:id="@+id/calendar"
             android:icon="@drawable/ic_calendar"
             android:title="Calendar"/>
+        <item android:id="@+id/Attendance"
+            android:icon="@drawable/ic_present"
+            android:title="Mark Attendance"/>
+
     </group>
     <item android:title="Other">
         <menu>
