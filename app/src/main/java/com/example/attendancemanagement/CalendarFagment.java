@@ -66,6 +66,7 @@ public class CalendarFagment extends Fragment {
         });
 
         submitbtn =(Button)view.getRootView().findViewById(R.id.submit_present);
+        verifyText=(EditText)view.findViewById(R.id.text_verification);
         verifybtn=(Button)view.getRootView().findViewById(R.id.verify_button);
         checkAttendance=(Button)view.getRootView().findViewById(R.id.check_attendance);
         calendar=Calendar.getInstance();
@@ -107,10 +108,10 @@ public class CalendarFagment extends Fragment {
     }
 
     private void verifyOTPCode(){
-        String code=verifyText.getText().toString();
+        String code=verifyText.getText().toString().trim();
         Toast.makeText(getActivity(),code,Toast.LENGTH_SHORT).show();
-//        PhoneAuthCredential credential=PhoneAuthProvider.getCredential(codeSent,code);
-//        verifyCredential(credential);
+        PhoneAuthCredential credential=PhoneAuthProvider.getCredential(codeSent,code);
+        verifyCredential(credential);
     }
     private void verifyCredential(PhoneAuthCredential credential) {
 
