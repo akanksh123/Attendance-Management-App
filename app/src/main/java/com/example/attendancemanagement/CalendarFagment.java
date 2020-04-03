@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,21 +41,27 @@ import java.util.concurrent.TimeUnit;
 
 public class CalendarFagment extends Fragment {
     FirebaseAuth mAuth;
+    FirebaseDatabase mFirebaseDatabase;
+    DatabaseReference myRef;
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
     private Button submitbtn,verifybtn;
     private Button checkAttendance;
-    String date;
+    String date,value;
     private CalendarView calendarView;
     private String selectedDate;
     EditText verifyText;
     String codeSent;
+    Count cnt;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar,
                 container, false);
         mAuth=FirebaseAuth.getInstance();
+
+        mFirebaseDatabase=FirebaseDatabase.getInstance();
+        myRef=mFirebaseDatabase.getReference("Count");
 
         calendarView =(CalendarView)view.getRootView().findViewById(R.id.calendarView);
 
@@ -92,9 +104,24 @@ public class CalendarFagment extends Fragment {
         checkAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        value=dataSnapshot.getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w("TAG", "Failed to read value.", databaseError.toException());
+
+                    }
+                });
+
                 Fragment  markAttendanceFagment= new MarkAttendanceFagment();
                 Bundle args =new Bundle();
-                args.putString("dates","your stirng");
+                args.putString("dates",value);
+                Toast.makeText(getActivity(),value,Toast.LENGTH_SHORT).show();
                 markAttendanceFagment.setArguments(args);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,markAttendanceFagment).commit();
             }
@@ -120,6 +147,8 @@ public class CalendarFagment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            cnt.setCount(Integer.parseInt("10"));
+                            myRef.child("User1").setValue(cnt);
 
                             Toast.makeText(getActivity(),"Works perfectly",Toast.LENGTH_SHORT).show();
                         } else {
