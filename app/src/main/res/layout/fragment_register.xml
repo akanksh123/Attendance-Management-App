@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorGrey">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/register"
+        android:textColor="@color/colorRed"
+        android:text="Register"
+        android:textSize="40sp"
+        android:layout_marginTop="100dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/register"
+        android:layout_centerHorizontal="true"
+        android:hint="Enter the Email"
+        android:id="@+id/register_email"
+        android:background="@color/white"/>
+    <EditText
+        android:id="@+id/register_pass"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/register_email"
+        android:hint="Enter password"
+        android:background="@color/white"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_pass"
+        android:layout_marginTop="70dp"
+        android:text="Register"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+</RelativeLayout>
