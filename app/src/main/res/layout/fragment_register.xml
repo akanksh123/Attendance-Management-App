@@ -9,15 +9,15 @@
         android:id="@+id/register"
         android:textColor="@color/colorRed"
         android:text="Register"
-        android:textSize="40sp"
-        android:layout_marginTop="100dp"
+        android:textSize="35sp"
+        android:layout_marginTop="70dp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         />
     <EditText
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/register"
         android:layout_centerHorizontal="true"
         android:hint="Enter the Email"
@@ -26,7 +26,7 @@
     <EditText
         android:id="@+id/register_pass"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/register_email"
         android:hint="Enter password"
@@ -41,6 +41,6 @@
         android:text="Register"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:textSize="25sp"/>
+        android:textSize="20sp"/>
 
 </RelativeLayout>

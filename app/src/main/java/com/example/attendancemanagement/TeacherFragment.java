@@ -3,6 +3,7 @@ package com.example.attendancemanagement;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +36,22 @@ public class TeacherFragment extends Fragment {
         pass=(EditText)view.getRootView().findViewById(R.id.pass);
         signin=(Button)view.getRootView().findViewById(R.id.signin_btn);
 
+
+
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
         return view;
     }
     private void signIn(){
         String email=emailtxt.getText().toString();
         String password=pass.getText().toString();
+        if(TextUtils.isEmpty(email)||TextUtils.isEmpty(password)){
+            Toast.makeText(getActivity(),"Enter email and password",Toast.LENGTH_SHORT).show();
+        }else {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>()  {
                     @Override
@@ -60,7 +72,7 @@ public class TeacherFragment extends Fragment {
                         // ...
                     }
                 });
-    }
+    }}
     @Override
     public void onStart() {
         super.onStart();
@@ -70,10 +82,15 @@ public class TeacherFragment extends Fragment {
     }
     private void updateUI(FirebaseUser user) {
         if(user!=null){
+
+            Toast.makeText(getActivity(),user.getEmail(),Toast.LENGTH_SHORT).show();
+
             startActivity(new Intent(getActivity(),TeacherActivity.class));
+
         }
         else{
             Toast.makeText(getActivity(),"User login failed",Toast.LENGTH_SHORT).show();
+
         }
     }
 

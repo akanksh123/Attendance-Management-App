@@ -11,6 +11,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".TeacherActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

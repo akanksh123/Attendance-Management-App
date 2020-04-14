@@ -1,5 +1,6 @@
 package com.example.attendancemanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,16 +26,16 @@ public class TeacherActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_teacher);
 
         headeremail=(TextView)findViewById(R.id.header_email);
-        headername=(TextView)findViewById(R.id.header_name);
+//        headername=(TextView)findViewById(R.id.header_name);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
+//            String name = user.getDisplayName();
             String email = user.getEmail();
 
-            headername.setText(name);
-            headeremail.setText(email);
+//            headername.setText(name);
+//            headeremail.setText(email);
 
             // Check if user's email is verified
             boolean emailVerified = user.isEmailVerified();
@@ -92,7 +93,8 @@ public class TeacherActivity extends AppCompatActivity implements NavigationView
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_teacher,new DetailsFragment()).commit();
                 break;
             case R.id.logout:
-                Toast.makeText(this,"Logout",Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this,MainActivity.class));
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

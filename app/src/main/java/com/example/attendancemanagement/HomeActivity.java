@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -61,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new CalendarFagment()).commit();
                 break;
             case R.id.logout:
-                Toast.makeText(this,"Logout",Toast.LENGTH_SHORT).show();
+//                FirebaseAuth.getInstance().signOut();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
