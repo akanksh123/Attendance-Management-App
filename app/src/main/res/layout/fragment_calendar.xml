@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="@color/colorGrey">
 
 
-<!--        <CalendarView-->
-<!--            android:id="@+id/calendarView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_centerHorizontal="true"-->
-
-<!--            />-->
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:dateTextAppearance="@color/white"
+               android:weekDayTextAppearance="@color/white"
+            />
 
         <Button
             android:id="@+id/submit_present"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+                android:layout_below="@+id/calendarView"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="Mark Present"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/check_attendance"
@@ -30,16 +31,18 @@
             android:layout_below="@id/verify_button"
             android:layout_centerHorizontal="true"
             android:text="Check Attendance"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            android:layout_marginTop="3dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/text_verification"
             android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_below="@id/submit_present"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
+            android:textColor="@color/white"
             android:ems="10"
             android:hint="Enter the Verification Code"
             android:inputType="number" />
@@ -50,9 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_verification"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:text="Submit"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
 
             />
