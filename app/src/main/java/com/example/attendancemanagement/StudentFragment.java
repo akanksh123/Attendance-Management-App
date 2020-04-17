@@ -79,8 +79,7 @@ public class StudentFragment extends Fragment {
        if(user!=null){
 
             Toast.makeText(getActivity(),user.getEmail(),Toast.LENGTH_SHORT).show();
-
-//            startActivity(new Intent(getActivity(),HomeActivity.class));
+            startActivity(new Intent(getActivity(),HomeActivity.class));
 
         }
         else{

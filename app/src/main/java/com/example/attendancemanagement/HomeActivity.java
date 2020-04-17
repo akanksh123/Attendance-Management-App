@@ -7,66 +7,94 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private DrawerLayout drawer;
+    private DrawerLayout drawer1;
+    TextView headeremail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        headeremail=(TextView)findViewById(R.id.header_email);
+//        headername=(TextView)findViewById(R.id.header_name);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+//            String name = user.getDisplayName();
+            String email = user.getEmail();
+
+//            headername.setText(name);
+//            headeremail.setText(email);
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+            String uid = user.getUid();
+        }
+
+
+
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //calling drawer
-        drawer=findViewById(R.id.drawer_layout);
+        drawer1=findViewById(R.id.drawer_layout);
         NavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+//
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer1,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
 
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
-
-        drawer.addDrawerListener(toggle);
-
-        //rotating hamburger
+        drawer1.addDrawerListener(toggle);
+//
+//        //rotating hamburger
         toggle.syncState();
-        //first activity will be attendance activity
+//        //first activity will be attendance activity
         if(savedInstanceState==null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CalendarFagment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container1, new CalendarFagment()).commit();
             navigationView.setCheckedItem(R.id.calendar);
-        } }
-
-    @Override
-    public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START);
-
         }
-        else{
-        super.onBackPressed();}
-    }
-
+        }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.Attendance:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MarkAttendanceFagment()).commit();
+            case R.id.calendar:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container1,new CalendarFagment()).commit();
 
                 break;
-            case R.id.calendar:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new CalendarFagment()).commit();
-                break;
+
             case R.id.logout:
-//                FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this,MainActivity.class));
                 break;
         }
-        drawer.closeDrawer(GravityCompat.START);
+        drawer1.closeDrawer(GravityCompat.START);
 
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer1.isDrawerOpen(GravityCompat.START)){
+            drawer1.closeDrawer(GravityCompat.START);
+
+        }
+        else{
+            super.onBackPressed();}
+    }
+
+
 }

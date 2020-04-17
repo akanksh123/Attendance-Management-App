@@ -52,7 +52,7 @@ public class TeacherActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //calling drawer
-        drawer=findViewById(R.id.drawer_layout);
+        drawer=findViewById(R.id.drawer_layout_teacher);
         NavigationView navigationView=findViewById(R.id.nav_view_teacher);
         navigationView.setNavigationItemSelectedListener(this);
 
