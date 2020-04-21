@@ -60,12 +60,16 @@ public class TeacherFragment extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            emailtxt.setText("");
+                            pass.setText("");
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            emailtxt.setText("");
+                            pass.setText("");
                             updateUI(null);
                         }
 
@@ -83,15 +87,12 @@ public class TeacherFragment extends Fragment {
     private void updateUI(FirebaseUser user) {
         if(user!=null){
 
-            Toast.makeText(getActivity(),user.getEmail(),Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(),user.getEmail(),Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(getActivity(),TeacherActivity.class));
 
         }
-        else{
-            Toast.makeText(getActivity(),"User login failed",Toast.LENGTH_SHORT).show();
 
-        }
     }
 
 }

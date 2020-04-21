@@ -18,12 +18,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterFragment extends Fragment {
-    FirebaseAuth mAuth;
-    EditText regemail,regpass;
-    Button registerbtn;
+    private FirebaseAuth mAuth;
+    private EditText regemail,regpass;
+    private Button registerbtn;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class RegisterFragment extends Fragment {
 
     private void signUp() {
         String email=regemail.getText().toString();
-        String password=regemail.getText().toString();
+        String password=regpass.getText().toString();
 
     mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -57,11 +60,23 @@ public class RegisterFragment extends Fragment {
                 Log.d("TAG", "createUserWithEmail:success");
 
                 Toast.makeText(getActivity(),"Registration successful",Toast.LENGTH_SHORT).show();
+                regpass.setText("");
+                regemail.setText("");
             } else {
-                // If sign in fails, display a message to the user.
-                Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                Toast.makeText(getActivity(), "Registration failed.",
-                        Toast.LENGTH_SHORT).show();
+                try {
+                    throw task.getException();
+                } catch(FirebaseAuthWeakPasswordException e) {
+                    regpass.setError("weak password");
+                    regpass.requestFocus();
+                } catch(FirebaseAuthInvalidCredentialsException e) {
+                    regemail.setError("invalid email");
+                    regemail.requestFocus();
+                } catch(FirebaseAuthUserCollisionException e) {
+                    regemail.setError("user already exists");
+                    regemail.requestFocus();
+                } catch(Exception e) {
+                    Log.e("TAG", e.getMessage());
+                }
 
             }
 

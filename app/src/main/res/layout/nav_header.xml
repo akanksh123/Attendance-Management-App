@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="176dp"
+    android:layout_height="156dp"
     android:background="@color/cardview_dark_background"
     android:gravity="bottom"
     android:padding="20dp"
@@ -10,18 +10,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:id="@+id/header_name"
-        android:text="Coding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:paddingBottom="20dp"
+        android:src="@mipmap/ic_launcher2_round"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/header_email"
-        android:text="email@gmai.com"/>
+
 </LinearLayout>

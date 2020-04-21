@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,18 +56,25 @@ public class StudentFragment extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            emailtxt.setText("");
+                            pass.setText("");
                             updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithEmail:failure", task.getException());
+
+                            Log.w("TAG", "signInWithEmail:failure"+ task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            emailtxt.setText("");
+                            pass.setText("");
                             updateUI(null);
                         }
 
                         // ...
                     }
-                });
+                }
+                );
     }
     @Override
     public void onStart() {
@@ -78,12 +86,12 @@ public class StudentFragment extends Fragment {
     private void updateUI(FirebaseUser user) {
        if(user!=null){
 
-            Toast.makeText(getActivity(),user.getEmail(),Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(),user.getEmail(),Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(),HomeActivity.class));
 
         }
         else{
-            Toast.makeText(getActivity(),"User login failed",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(),"User login failed",Toast.LENGTH_SHORT).show();
 
         }
   }

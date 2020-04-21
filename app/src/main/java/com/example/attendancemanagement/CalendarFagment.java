@@ -56,13 +56,10 @@ public class CalendarFagment extends Fragment {
 //    FirebaseAuth mAuthentication;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
-    private Calendar calendar;
-    private SimpleDateFormat simpleDateFormat;
     private Button submitbtn,verifybtn;
     private Button checkAttendance;
-    private String date,value;
     private CalendarView calendarView;
-    private String selectedDate;
+
     private EditText verifyText;
     private Random random;
     private String randomno,id,useremail;
@@ -74,45 +71,28 @@ public class CalendarFagment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar,
                 container, false);
-//        mAuth=FirebaseAuth.getInstance();
-//
+
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         myRef=mFirebaseDatabase.getReference("user");
         useremail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
         id=useremail.split("@")[0];
 
-//
-//        calendarView =(CalendarView)view.getRootView().findViewById(R.id.calendarView);
 
 
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-//
-//        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//                selectedDate=Integer.toString(year)+Integer.toString(month)+Integer.toString(dayOfMonth);
-//
-//
-//                Toast.makeText(getActivity(),selectedDate+"  ",Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
         random=new Random();
         submitbtn =(Button)view.getRootView().findViewById(R.id.submit_present);
         verifyText=(EditText)view.findViewById(R.id.text_verification);
         verifybtn=(Button)view.getRootView().findViewById(R.id.verify_button);
         checkAttendance=(Button)view.getRootView().findViewById(R.id.check_attendance);
-        calendar=Calendar.getInstance();
-        simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        date=simpleDateFormat.format(calendar.getTime());
 
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(getActivity(),date,Toast.LENGTH_SHORT).show();
                 sendMessage();
             }
         });
@@ -125,29 +105,11 @@ public class CalendarFagment extends Fragment {
 
             }
         });
-//
+
         checkAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                myRef.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        value=dataSnapshot.getValue(String.class);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//                        Log.w("TAG", "Failed to read value.", databaseError.toException());
-//
-//                    }
-//                });
-//
-//                Fragment  markAttendanceFagment= new MarkAttendanceFagment();
-//                Bundle args =new Bundle();
-//                args.putString("dates",value);
-//                Toast.makeText(getActivity(),value,Toast.LENGTH_SHORT).show();
-//                markAttendanceFagment.setArguments(args);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container1,new MarkAttendanceFagment()).commit();
             }
         });
@@ -160,7 +122,7 @@ public class CalendarFagment extends Fragment {
     }
 
     private void sendMessage() {
-        String phoneNumber="+919845352320";
+        String phoneNo="+919845352320";
         randomno= Integer.toString(random.nextInt(999999)) ;
 
 
@@ -169,7 +131,7 @@ public class CalendarFagment extends Fragment {
             String apiKey = "apikey=" + "tLx32oZCOU8-U4lZQ4ftGKLvRfbaVsrUw0hG3XRRVH";
             String message = "&message=" + "Your otp is"+randomno;
             String sender = "&sender=" + "TXTLCL";
-            String numbers = "&numbers=" + phoneNumber;
+            String numbers = "&numbers=" + phoneNo;
 
             // Send data
             HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
@@ -189,7 +151,7 @@ public class CalendarFagment extends Fragment {
         Toast.makeText(getActivity(),"OTP sent",Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
 
-            Toast.makeText(getActivity(),"Error "+e,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Error sending OTP.Please try again",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -197,48 +159,50 @@ public class CalendarFagment extends Fragment {
 
         private void verifyOTP() {
             String code = verifyText.getText().toString().trim();
-            Toast.makeText(getActivity(), code, Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), "correct"+randomno, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), code, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "correct"+randomno, Toast.LENGTH_SHORT).show();
 
             if(randomno.equalsIgnoreCase(code)){
                 Toast.makeText(getActivity(),"Otp verified successfully", Toast.LENGTH_SHORT).show();
+                verifyText.setText("");
+//                Toast.makeText(getActivity(),id, Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(getActivity(),id, Toast.LENGTH_SHORT).show();
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if(dataSnapshot.hasChild(id)){
-                counts=Integer.parseInt(dataSnapshot.child(id).child("count").getValue().toString());
-                Toast.makeText(getActivity(),""+counts,Toast.LENGTH_SHORT).show();
-                cnt=new Count();
-                cnt.setCount(Integer.toString(counts+1));
-                myRef.child(id).setValue(cnt);
-                Toast.makeText(getActivity(),"Updated successfully",Toast.LENGTH_SHORT).show();
-            }
-            else{
-                cnt=new Count("0");
-
-
-                try {
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChild(id)){
+                    counts=Integer.parseInt(dataSnapshot.child(id).child("count").getValue().toString());
+//                    Toast.makeText(getActivity(),""+counts,Toast.LENGTH_SHORT).show();
+                    cnt=new Count();
+                    cnt.setCount(Integer.toString(counts+1));
                     myRef.child(id).setValue(cnt);
-                    Toast.makeText(getActivity(),"Added successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Submitted successfully",Toast.LENGTH_SHORT).show();
+
                 }
-                catch (Exception e){
-                    Toast.makeText(getActivity(),""+e,Toast.LENGTH_SHORT).show();
+                else{
+                    cnt=new Count("1");
+
+
+                    try {
+                        myRef.child(id).setValue(cnt);
+                        Toast.makeText(getActivity(),"Submitted successfully",Toast.LENGTH_SHORT).show();
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getActivity(),"Error in submission",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
-        }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        }
-        });
+                }
+            });
 
             }
             else{
                 Toast.makeText(getActivity(),"Wrong OTP",Toast.LENGTH_SHORT).show();
+                verifyText.setText("");
             }
         }
 
