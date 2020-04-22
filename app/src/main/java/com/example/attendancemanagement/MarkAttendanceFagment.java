@@ -40,7 +40,7 @@ public class MarkAttendanceFagment extends Fragment {
                 container, false);
 
 
-        Toast.makeText(getActivity(),"mark attendance",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(),"mark attendance",Toast.LENGTH_SHORT).show();
 
         classheld=(TextView)view.getRootView().findViewById(R.id.classes_held);
         classattended=(TextView)view.getRootView().findViewById(R.id.classes_attended);

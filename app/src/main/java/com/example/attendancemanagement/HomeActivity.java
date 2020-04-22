@@ -52,7 +52,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container1,new CalendarFagment()).commit();
 
                 break;
+            case R.id.check_attendance:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container1,new MarkAttendanceFagment()).commit();
 
+                break;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this,MainActivity.class));

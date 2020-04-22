@@ -87,7 +87,6 @@ public class CalendarFagment extends Fragment {
         submitbtn =(Button)view.getRootView().findViewById(R.id.submit_present);
         verifyText=(EditText)view.findViewById(R.id.text_verification);
         verifybtn=(Button)view.getRootView().findViewById(R.id.verify_button);
-        checkAttendance=(Button)view.getRootView().findViewById(R.id.check_attendance);
 
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
@@ -106,16 +105,6 @@ public class CalendarFagment extends Fragment {
             }
         });
 
-        checkAttendance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container1,new MarkAttendanceFagment()).commit();
-            }
-        });
-
-
-
 
         return view;
 
@@ -128,7 +117,7 @@ public class CalendarFagment extends Fragment {
 
         try {
 
-            String apiKey = "apikey=" + "tLx32oZCOU8-U4lZQ4ftGKLvRfbaVsrUw0hG3XRRVH";
+            String apiKey = "apikey=" + "4xjNpTpn+Ys-CwYbB8q15DUkLYIIiRGKS6un6uTrQE";
             String message = "&message=" + "Your otp is"+randomno;
             String sender = "&sender=" + "TXTLCL";
             String numbers = "&numbers=" + phoneNo;
