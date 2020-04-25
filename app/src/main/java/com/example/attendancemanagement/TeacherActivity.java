@@ -69,6 +69,9 @@ public class TeacherActivity extends AppCompatActivity implements NavigationView
             case R.id.details:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_teacher,new DetailsFragment()).commit();
                 break;
+            case R.id.student_attendance:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_teacher,new AddAttendanceFragment()).commit();
+                break;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this,MainActivity.class));

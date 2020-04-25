@@ -30,6 +30,7 @@
         android:layout_below="@+id/emailstudent"
         android:hint="Enter password"
         android:background="@color/white"
+        android:inputType="textPassword"
         android:layout_centerHorizontal="true"/>
     <Button
         android:id="@+id/signin_btnstudent"
